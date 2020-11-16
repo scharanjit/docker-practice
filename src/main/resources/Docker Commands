@@ -1,0 +1,90 @@
+
+
+==> docker system prune -a
+
+This will remove:
+  - all stopped containers
+  - all networks not used by at least one container
+  - all images without at least one container associated to them
+  - all build cache
+
+
+
+==> docker run -d -p 80:80 docker/getting-started
+
+-d - run the container in detached mode (in the background)
+-p 80:80 - map port 80 of the host to port 80 in the container
+docker/getting-started - the image to use
+
+
+==> docker version
+
+
+==> docker images
+
+==> docker pull docker/getting-started
+
+
+==> Start and Stop and remove a container
+
+charanjits@XXX ~ % docker run -d -p 80:80 67a3629d4d71
+d08b6332a53b442255894268d82c9444c97adf937fdbb3dda1e94975437adf27
+charanjits@XXX ~ % docker stop d0
+d0
+charanjiths@XXX ~ % docker rm d0
+d0
+
+image will remain but container will be der
+
+==> Name a container
+
+docker run --name my-local -d -p 80:80 docker/getting-started
+
+
+charanjiths@XXX ~ % docker run --name my-local -d -p 80:80 docker/getting-started
+cd79153da9f4676d38a9f96ed417c54b3d99b1aa4d70ca79373e44edf2a2ffa2
+charanjiths@XXX ~ % docker stop my-local
+my-local
+charanjiths@XXX ~ % docker rm my-local
+my-local
+charanjiths@XXX ~ %
+
+
+==> List a container
+
+docker ps
+
+docker ps -a
+
+==> remove image + container
+
+docker rmi <image-name>
+
+
+************************************************
+
+charanjiths@XXX ~ % docker rmi docker/getting-started
+Error response from daemon: conflict: unable to remove repository reference "docker/getting-started" (must force) - container fa46c1a7d154 is using its referenced image 67a3629d4d71
+charanjiths@XXX ~ % docker stop my-local
+my-local
+charanjiths@XXX ~ % docker rmi docker/getting-started
+Error response from daemon: conflict: unable to remove repository reference "docker/getting-started" (must force) - container fa46c1a7d154 is using its referenced image 67a3629d4d71
+charanjiths@XXX ~ % docker rm  my-local
+my-local
+charanjiths@XXX ~ % docker rmi docker/getting-started
+Untagged: docker/getting-started:latest
+Untagged: docker/getting-started@sha256:7434aacfacb3c2d7d49f013e8a8092fde022c8b9f058b7fae7077e9cad1edc99
+Deleted: sha256:67a3629d4d71c24ff5be262cbbb7c17e976b3c89cad71dc6f5b8d341b4cbbc9c
+Deleted: sha256:89e65bd1ec772b03234d84244407033e1005586eacb5e04ea13938dbab1c3862
+Deleted: sha256:6d3bb8764e38a5ed67c3e5fd48fec7a7e402e973386ca1d6276f63c8d80cc406
+Deleted: sha256:24fefe025f4ff24565b3e9dbd68156e21eee89cdf5378797209d2204a55d42f0
+Deleted: sha256:8fc317fc6ff00ac15118973cfc423dab3df80ef420f9c5a8b5ac4dc7edc70ca1
+Deleted: sha256:5bf0520ccfa7f1cefe009517fc3dac8c612c01e6d1c6ced4a99b7ab70d3d3948
+Deleted: sha256:0e5e4eb7c75c7d3c43b413af302e1f48860e4de14c5b85630ada40df537b5c33
+Deleted: sha256:ace0eda3e3be35a979cec764a3321b4c7d0b9e4bb3094d20d3ff6782961a8d54
+charanjiths@XXX ~ %
+
+
+*************************************************
+
+
