@@ -88,3 +88,106 @@ charanjiths@XXX ~ %
 *************************************************
 
 
+==> Volume Mount in Docker
+
+docker pull mongo
+
+
+docker run -p 27017:27017 mongo
+
+
+Follow this https://docs.docker.com/docker-for-mac/
+
+docker run -p 27017:27017 -v /Users/charanjiths/Desktop/dbtemp/db:/data/db mongo
+
+ docker run -p 3000:3000 -v /Users/charanjiths/Desktop/express:/var/www node npm start prefix /var/www
+
+ docker run -p 3000:3000 -v ${pwd}:/var/www node npm start prefix /var/www
+
+
+ ==> Build a image locally (keep image locally and dont push) [start from here]
+
+docker build -t <image_name> .
+
+==> Run a image
+
+docker run -d -p 3000:3000 <image_name>
+
+
+==> Connect docker node app to container
+
+1.) Build image for mongdb
+
+2.) run mongo image
+
+docker run -p 27017:27017 mongo
+
+2.) Build node app image
+cd /Users/charanjiths/Documents/XXX/XXX/docker-pactice/src/main/resources
+
+
+docker build -t  nodeapp .
+
+3.) Link image
+docker run -p 3000:3000  --name mynodeapp --link mongo nodeapp
+
+charanjiths@XXXXXX resources % docker ps -a
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+charanjiths@XXXXXX resources % docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+both should give empty
+
+charanjiths@XXXXX resources % docker images
+REPOSITORY   TAG       IMAGE ID       CREATED          SIZE
+nodeapp      latest    1f0d8b74f818   58 seconds ago   946MB
+mongo        latest    3068f6bb852e   4 days ago       493MB
+
+charanjiths@Xxxx resources % docker ps
+CONTAINER ID   IMAGE     COMMAND                  CREATED         STATUS         PORTS                      NAMES
+da0fea5bbe2e   mongo     "docker-entrypoint.s…"   2 minutes ago   Up 2 minutes   0.0.0.0:27017->27017/tcp   mongodb
+
+ docker run -p 27017:27017 --name mongodb mongo
+
+docker run -p 3000:3000  --name mynodeapp --link mongodb nodeapp
+
+
+http://localhost:3000/test
+
+ ===================================================================
+Create a docker network
+
+docker network create --driver bridge mynetwork
+
+List a network
+
+docker network ls
+
+
+Run mongo in a network
+docker run -p 27017:27017 --name mongodb --net=mynetwork mongo
+
+Link nodeapp to mongo runnig in local network
+
+docker run -p 3000:3000  --name mynodeapp --net=mynetwork nodeapp
+
+
+===============================
+
+docker-compose build
+
+docker-compose up -d
+
+check docker-compose.yml for environment variables
+
+
+===================================
+
+
+
+
+
+
+
+
+
